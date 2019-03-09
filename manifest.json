@@ -1,0 +1,21 @@
+{
+    "name": "Word Count on Page",
+    "version": "1.0",
+    "manifest_version": 2,
+    "permissions": ["storage", "tabs"],
+    "icons": {"128": "icon.png" },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "run_at": "document_end",
+            "js":["jquery_lean.js","content.js"]
+        }
+    ],
+    "browser_action": {
+        "default_title": "Word Counts",
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": ["jquery_lean.js", "background.js"]
+    }
+}
