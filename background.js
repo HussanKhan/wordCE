@@ -3,7 +3,7 @@
 
 console.log("BACKGROUND SCRIPT RUNNING");
 
-// Current state of badge
+// Current tabs
 let model = {
     
     currentTab: "",
@@ -11,6 +11,7 @@ let model = {
 
 };
 
+// Interacts with Popupjs and Contentjs
 let view = {
 
     init: () => {
@@ -39,14 +40,23 @@ let view = {
 
                     console.log(model);
                     
-                    return true;
+                    sendResponse(1);
 
-                case "pageInfo":
-                    sendResponse({wc: pageObject.wordCount, title: pageObject.title});
+                case "wordCount":
+                    const wc = controller.currentWordCount();
+
+                    if (!(wc)) {
+                        sendResponse({wc: 0});
+                    }
+
+                    sendResponse({wc: wc});
+
                 default:
-                    return 1
+                    return 0
             }
         });
+
+        chrome.browserAction.setBadgeBackgroundColor({color : "#718093"});
     }, 
 
     badge: (tabId) => {
@@ -54,31 +64,36 @@ let view = {
         if (value) {
             value = value.toString();
             chrome.browserAction.setBadgeText({text: value}, (data) => {
-                console.log(data);
+                return 0;
             });
         }
     },
 };
 
-
+// Interacts with model
 let controller = {
     
     updateCurrentTab: (tabId) => {
         model.currentTab = tabId;
-        return 1;
+        return 0;
     },
 
     addTab: (sender, request) => {
         console.log(sender)
         const tabId = sender.tab.id;
         model.knownTabs[tabId] = request.wc;
-        return 1;
+        return 0;
     },
 
     getWordCount: (tabId) => {
         const wordCount = model.knownTabs[tabId];
         return wordCount;
     },
+
+    currentWordCount: () => {
+        const wordCount = model.knownTabs[model.currentTab];
+        return wordCount;
+    }
 
 };
 

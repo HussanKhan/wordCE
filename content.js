@@ -25,18 +25,10 @@ const parsePage = () => {
 
     console.log(wordCount);
     
-
+    // Sends page to backend
     chrome.runtime.sendMessage({request: "newPage",title: "some page", wc: wordCount}, (res) => {
         console.log("Response from backend");
     });
-
-    // chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-//     console.log(request);
-//     // request();
-//     sendResponse("From backend: Hello");
-// });
-
-
 };
 
 window.onload = () => {
