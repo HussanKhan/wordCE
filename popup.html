@@ -18,27 +18,70 @@
             width: 300px;
         }
 
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            flex-wrap: nowrap;
+        }
+
         .wordCount {
             margin: 0 auto;
             border: 1px solid #e4e6f2;
             text-align: center;
-            position: relative;
-            top: 35%;
             font-weight: 100;
             font-size: 2rem;
+            margin-bottom: 13%;
             border-radius: 55px;
-            color: #718093;
+            color: white;
+            /* background-color: #718093; */
+            background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 2% 5% 2% 5%;
             width: 53%;
             box-shadow: 0 19px 40px rgba(187,192,211,.2);
+        }
+
+        .icon {
+            height: 26px;
+        }
+
+        .title {
+            color: #718093;
+            margin: 0px;
+            margin-top: 1px;
+            font-size: 1.1rem;
+        }
+
+        .topBar {
+            display: flex;
+            flex-direction: row;
+            padding: 12px;
+            flex-wrap: nowrap;
+            padding-top: 6px;
+            justify-content: space-between;
+        }
+
+        .company {
+            color: #718093;
+            margin: 0px;
+            text-align: center;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            padding-bottom: 12px;
         }
         
     </style>
     <body>
         <!-- <button class="actionButton">Click Me</button> -->
-
-        <h1 class="wordCount">---</h1>
-        <span>Words</span>
+        <div class="wrapper">
+            <div class="topBar">
+                <img class="icon" src="icon.png" alt="">
+                <p class="title">Word Count</p>
+            </div>
+            <h1 class="wordCount">---</h1>
+            <p class="company">By Warp Vessel</p>
+        </div>
     </body>
     <script src="popup.js"></script>
 </html>

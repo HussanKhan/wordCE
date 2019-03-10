@@ -18,11 +18,8 @@ let view = {
         
         // Update badge when focused tab changes
         chrome.tabs.onActivated.addListener((data) => {
-            console.log("DETECTED TAB CHANGED");
-            console.log(data);
-            console.log("++++++++++++++++++++++++++++++++++++")
             controller.updateCurrentTab(data.tabId);
-            view.badge(data.tabId);
+            view.badge();
         });
 
         // Message Router
@@ -35,12 +32,12 @@ let view = {
 
                     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
                         controller.updateCurrentTab(tabs[0].id);
-                        view.badge(tabs[0].id);
+                        view.badge();
                     });
-
-                    console.log(model);
                     
                     sendResponse(1);
+
+                    console.log(model);
 
                 case "wordCount":
                     const wc = controller.currentWordCount();
@@ -59,10 +56,10 @@ let view = {
         chrome.browserAction.setBadgeBackgroundColor({color : "#718093"});
     }, 
 
-    badge: (tabId) => {
-        let value = controller.getWordCount(tabId);
+    // Updates badge
+    badge: () => {
+        const value = controller.currentWordCount();
         if (value) {
-            value = value.toString();
             chrome.browserAction.setBadgeText({text: value}, (data) => {
                 return 0;
             });
@@ -79,19 +76,19 @@ let controller = {
     },
 
     addTab: (sender, request) => {
-        console.log(sender)
         const tabId = sender.tab.id;
         model.knownTabs[tabId] = request.wc;
         return 0;
     },
 
-    getWordCount: (tabId) => {
-        const wordCount = model.knownTabs[tabId];
-        return wordCount;
-    },
-
     currentWordCount: () => {
-        const wordCount = model.knownTabs[model.currentTab];
+        let wordCount = model.knownTabs[model.currentTab];
+
+        if (!(wordCount)) {
+            return 0;
+        }
+
+        wordCount = wordCount.toString()
         return wordCount;
     }
 

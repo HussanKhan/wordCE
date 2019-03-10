@@ -3,8 +3,7 @@
 
 console.log("CONTENT SCRIPT RUNNING");
 
-
-// Extracts body of text to get paragraphs
+// Extracts body of text to get paragraphs, sends to backend
 const parsePage = () => {
 
     let content = "";
@@ -19,15 +18,11 @@ const parsePage = () => {
         content += para;
     });
 
-    console.log(content);
-
     const wordCount = content.split(" ").length;
-
-    console.log(wordCount);
     
     // Sends page to backend
-    chrome.runtime.sendMessage({request: "newPage",title: "some page", wc: wordCount}, (res) => {
-        console.log("Response from backend");
+    chrome.runtime.sendMessage({request: "newPage", wc: wordCount}, (res) => {
+        return 0;
     });
 };
 
