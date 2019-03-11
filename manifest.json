@@ -1,5 +1,5 @@
 {
-    "name": "Word Count on Page",
+    "name": "Word Count on Webpage By Warp Vessel",
     "version": "1.0",
     "manifest_version": 2,
     "permissions": ["tabs"],
@@ -12,7 +12,7 @@
         }
     ],
     "browser_action": {
-        "default_title": "Word Counts",
+        "default_title": "Word Count By Warp Vessel",
         "default_popup": "popup.html"
     },
     "background": {
