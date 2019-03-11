@@ -28,4 +28,9 @@ const parsePage = () => {
 
 window.onload = () => {
     parsePage();
+
+    let observeThis = document.getElementsByTagName("body")[0];
+    let observer = new MutationObserver(parsePage);
+    const config = { attributes: false, childList: true, subtree: true};
+    observer.observe(observeThis, config);
 };

@@ -5,17 +5,14 @@ console.log("BACKGROUND SCRIPT RUNNING");
 
 // Current tabs
 let model = {
-    
     currentTab: "",
     knownTabs: {}
-
 };
 
 // Interacts with Popupjs and Contentjs
 let view = {
 
     init: () => {
-        
         // Update badge when focused tab changes
         chrome.tabs.onActivated.addListener((data) => {
             controller.updateCurrentTab(data.tabId);
@@ -91,7 +88,6 @@ let controller = {
         wordCount = wordCount.toString()
         return wordCount;
     }
-
 };
 
 view.init();
