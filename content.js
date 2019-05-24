@@ -10,14 +10,16 @@ const parsePage = () => {
     
     const page = document.getElementsByTagName("body")[0].innerText;
 
-    const myReg = /[A-Z].+[\.\?\!][\s]/mg;
+    const myReg = /(\n|^).*?(?=\n|$)/mg;
 
     const matches = page.match(myReg);
 
     matches.forEach(para => {
-        content += para;
+        if ((para.includes(".") | para.includes("?") | para.includes("!")) && (para.split(" ").length > 5)) {
+            content += para;
+        }
     });
-
+    
     const wordCount = content.split(" ").length;
     
     // Sends page to backend
